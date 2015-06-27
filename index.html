@@ -46,11 +46,18 @@
 		<script>
 		$(function () {
 			var score = 0,
+				scoreShown = 0,
 				autoClick = 0,
 				autoClickCost = 50;
 
 			function updateScore() {
-				$('#score').text(score);
+				var delta = score - scoreShown;
+
+				scoreShown = delta > 10
+					? scoreShown + Math.floor(delta * 0.2)
+					: score;
+
+				$('#score').text(scoreShown);
 			}
 
 			function updatePowerups() {
@@ -70,22 +77,21 @@
 				})
 				.click(function () {
 					score = score + 1;
-					updateScore();
 					updatePowerups();
 				});
 
 			$('#auto-clicker').click(function () {
 				score = score - autoClickCost;
 				autoClick = autoClick + 1;
-				updateScore();
 				updatePowerups();
 			});
 
 			window.setInterval(function () {
 				score = score + autoClick;
-				updateScore();
 				updatePowerups();
 			}, 1000);
+
+			window.setInterval(updateScore, 20);
 
 			updateScore();
 			updatePowerups();
@@ -93,3 +99,7 @@
 		</script>
 	</body>
 </html>
+<!--
+- Add timer: "You have been playing for 0 days 0 hours 5 minutes"
+- Add timeout bar at bottom. If not clicking, timeout can expire and you lose the game.
+-->

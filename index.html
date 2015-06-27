@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Kitten Clicker</title>
+		<style>
+		body {
+			background: lightblue;
+			-webkit-user-select: none; /* Chrome/Safari */        
+			-moz-user-select: none; /* Firefox */
+			-ms-user-select: none; /* IE10+ */
+
+			/* Rules below not implemented in browsers yet */
+			-o-user-select: none;
+			user-select: none;			
+		}
+		#scoreboard {
+			text-align: center;
+			font: 30px sans-serif;
+			font-weight: bold;
+		}
+		#kitten {
+			width: 300px;
+			height: 300px;
+			background: red;
+			margin: 100px auto 0;
+			background: url(http://www.catbreedspic.co/wp-content/uploads/2014/08/cat-head-drawing-outlineoutline-of-cat-face---clipart-best-vsp41pcp.png) 50% 50% no-repeat;
+			background-size: contain;
+			cursor: pointer;
+			transition: width 25ms;
+		}
+		#kitten.depressed {
+			width: 297px;
+		}
+		#powerups {
+
+		}
+		</style>
+	</head>
+	<body>
+		<div id="scoreboard"><span id="score"></span> kittens</div>
+		<div id="kitten"></div>
+		<div id="powerups">
+			<button id="auto-clicker">Auto-clicker (50 kittens)</button>	
+		</div>
+		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script>
+		$(function () {
+			var score = 0,
+				autoClick = 0,
+				autoClickCost = 50;
+
+			function updateScore() {
+				$('#score').text(score);
+			}
+
+			function updatePowerups() {
+				if (score < autoClickCost) {
+					$('#auto-clicker').attr('disabled', 'true');	
+				} else {
+					$('#auto-clicker').removeAttr('disabled');
+				}
+			}
+
+			$('#kitten')
+				.mousedown(function () {
+					$(this).addClass('depressed');
+				})
+				.mouseup(function () {
+					$(this).removeClass('depressed');
+				})
+				.click(function () {
+					score = score + 1;
+					updateScore();
+					updatePowerups();
+				});
+
+			$('#auto-clicker').click(function () {
+				score = score - autoClickCost;
+				autoClick = autoClick + 1;
+				updateScore();
+				updatePowerups();
+			});
+
+			window.setInterval(function () {
+				score = score + autoClick;
+				updateScore();
+				updatePowerups();
+			}, 1000);
+
+			updateScore();
+			updatePowerups();
+		});
+		</script>
+	</body>
+</html>

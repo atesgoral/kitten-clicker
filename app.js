@@ -38,6 +38,14 @@ $(function () {
         );
     }
 
+    function updateScoreRate() {
+        var elapsedSeconds = Math.floor((new Date() - playStartDate) / 1000);
+
+        if (elapsedSeconds > 0) {
+            $('#score-rate').text((score / elapsedSeconds).toFixed(1));
+        }
+    }
+
     function updatePowerups() {
         if (score < autoClickCost) {
             $('#auto-clicker').attr('disabled', 'true');
@@ -76,14 +84,18 @@ $(function () {
         updatePowerups();
     });
 
-    window.setInterval(function () {
-        score = score + autoClick;
+    function updateAll() {
         updatePowerups();
         updateTimePlayed();
+        updateScoreRate();
+    }
+
+    window.setInterval(function () {
+        score = score + autoClick;
+        updateAll();
     }, 1000);
 
     window.setInterval(updateScore, 20);
 
-    updateScore();
-    updatePowerups();
+    updateAll();
 });

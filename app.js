@@ -74,13 +74,17 @@ $(function () {
 
     $('#auto-clicker').click(function () {
         score = score - autoClickCost;
+        autoClickCost = autoClickCost + 10;
         autoClick = autoClick + 1;
         updatePowerups();
     });
 
     $('#power-click').click(function () {
         score = score - powerClickCost;
-        clickIncrement = clickIncrement * 2;
+        clickIncrement = clickIncrement === 1
+            ? 5
+            : clickIncrement + 5;
+        powerClickCost = powerClickCost + 100;
         updatePowerups();
     });
 

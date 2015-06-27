@@ -1,0 +1,31 @@
+body {
+    background: lightblue;
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+
+    /* Rules below not implemented in browsers yet */
+    -o-user-select: none;
+    user-select: none;
+}
+#scoreboard {
+    text-align: center;
+    font: 30px sans-serif;
+    font-weight: bold;
+}
+#target {
+    width: 300px;
+    height: 300px;
+    background: red;
+    margin: 100px auto 0;
+    background: url(http://www.catbreedspic.co/wp-content/uploads/2014/08/cat-head-drawing-outlineoutline-of-cat-face---clipart-best-vsp41pcp.png) 50% 50% no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    transition: width 25ms;
+}
+#target.depressed {
+    width: 297px;
+}
+#powerups {
+
+}

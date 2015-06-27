@@ -2,39 +2,7 @@
 <html>
     <head>
         <title>Kitten Clicker</title>
-        <style>
-        body {
-            background: lightblue;
-            -webkit-user-select: none; /* Chrome/Safari */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* IE10+ */
-
-            /* Rules below not implemented in browsers yet */
-            -o-user-select: none;
-            user-select: none;
-        }
-        #scoreboard {
-            text-align: center;
-            font: 30px sans-serif;
-            font-weight: bold;
-        }
-        #target {
-            width: 300px;
-            height: 300px;
-            background: red;
-            margin: 100px auto 0;
-            background: url(http://www.catbreedspic.co/wp-content/uploads/2014/08/cat-head-drawing-outlineoutline-of-cat-face---clipart-best-vsp41pcp.png) 50% 50% no-repeat;
-            background-size: contain;
-            cursor: pointer;
-            transition: width 25ms;
-        }
-        #target.depressed {
-            width: 297px;
-        }
-        #powerups {
-
-        }
-        </style>
+        <link rel="stylesheet" href="app.css" />
     </head>
     <body>
         <div id="header">
@@ -48,97 +16,7 @@
             <button id="power-click">Power-click (100 kittens)</button>
         </div>
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script>
-        $(function () {
-            var score = 0,
-                scoreShown = 0,
-                autoClick = 0,
-                clickIncrement = 1,
-                autoClickCost = 50,
-                powerClickCost = 100,
-                playStartDate = new Date();
-
-            function updateScore() {
-                var delta = score - scoreShown;
-
-                scoreShown = delta > 10
-                    ? scoreShown + Math.floor(delta * 0.2)
-                    : score;
-
-                $('#score').text(scoreShown);
-            }
-
-            function updateTimePlayed() {
-                var elapsedSeconds = Math.floor((new Date() - playStartDate) / 1000),
-                    elapsedMinutes = Math.floor(elapsedSeconds / 60),
-                    elapsedHours = Math.floor(elapsedMinutes / 60),
-                    elapsedDays = Math.floor(elapsedHours / 24),
-                    secondsPart = elapsedSeconds % 60,
-                    minutesPart = elapsedMinutes % 60,
-                    hoursPart = elapsedHours % 24,
-                    daysPart = elapsedDays;
-
-                $('#time-played').text(
-                    daysPart
-                    + ':'
-                    + (100 + hoursPart).toString().slice(-2)
-                    + ':'
-                    + (100 + minutesPart).toString().slice(-2)
-                    + ':'
-                    + (100 + secondsPart).toString().slice(-2)
-                );
-            }
-
-            function updatePowerups() {
-                if (score < autoClickCost) {
-                    $('#auto-clicker').attr('disabled', 'true');
-                } else {
-                    $('#auto-clicker').removeAttr('disabled');
-                }
-
-                if (score < powerClickCost) {
-                    $('#power-click').attr('disabled', 'true');
-                } else {
-                    $('#power-click').removeAttr('disabled');
-                }
-            }
-
-            $('#target')
-                .mousedown(function () {
-                    $(this).addClass('depressed');
-                })
-                .mouseup(function () {
-                    $(this).removeClass('depressed');
-                })
-                .click(function () {
-                    score = score + clickIncrement;
-                    updatePowerups();
-                });
-
-            $('#auto-clicker').click(function () {
-                score = score - autoClickCost;
-                autoClick = autoClick + 1;
-                updatePowerups();
-            });
-
-            $('#power-click').click(function () {
-                score = score - powerClickCost;
-                clickIncrement = clickIncrement * 2;
-                updatePowerups();
-            });
-
-            window.setInterval(function () {
-                score = score + autoClick;
-                updatePowerups();
-                updateTimePlayed();
-            }, 1000);
-
-            window.setInterval(updateScore, 20);
-
-            updateScore();
-            updatePowerups();
-        });
-        </script>
+        <script src="app.js"></script>
     </body>
 </html>
 <!--

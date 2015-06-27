@@ -42,14 +42,6 @@ $(function () {
         );
     }
 
-    function updateScoreRate() {
-        var elapsedSeconds = Math.floor((new Date() - playStartDate) / 1000);
-
-        if (elapsedSeconds > 0) {
-            $('#score-rate').text((score / elapsedSeconds).toFixed(1));
-        }
-    }
-
     function updatePowerups() {
         if (score < autoClickCost) {
             $('#auto-click').attr('disabled', 'true');
@@ -131,7 +123,6 @@ $(function () {
     function updateAll() {
         updatePowerups();
         updateTimePlayed();
-        updateScoreRate();
     }
 
     window.setInterval(function () {

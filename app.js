@@ -3,8 +3,10 @@ $(function () {
         scoreShown = 0,
         autoClick = 0,
         clickIncrement = 1,
+        catLady = 0,
         autoClickCost = 50,
         powerClickCost = 100,
+        catLadyCost = 200,
         playStartDate = new Date();
 
     function updateScore() {
@@ -56,6 +58,15 @@ $(function () {
         $('#auto-click .current').text(autoClick);
         $('#auto-click .cost').text(autoClickCost);
 
+        if (score < catLadyCost) {
+            $('#cat-lady').attr('disabled', 'true');
+        } else {
+            $('#cat-lady').removeAttr('disabled');
+        }
+
+        $('#cat-lady .current').text(catLady);
+        $('#cat-lady .cost').text(catLadyCost);
+
         if (score < powerClickCost) {
             $('#power-click').attr('disabled', 'true');
         } else {
@@ -85,6 +96,13 @@ $(function () {
         updatePowerups();
     });
 
+    $('#cat-lady').click(function () {
+        score = score - catLadyCost;
+        catLadyCost = catLadyCost + 50;
+        catLady = catLady + 5;
+        updatePowerups();
+    });
+
     $('#power-click').click(function () {
         score = score - powerClickCost;
         clickIncrement = clickIncrement + 1;
@@ -99,7 +117,7 @@ $(function () {
     }
 
     window.setInterval(function () {
-        score = score + autoClick;
+        score = score + autoClick + catLady;
         updateAll();
     }, 1000);
 

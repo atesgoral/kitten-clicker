@@ -45,6 +45,7 @@
 		<div id="target"></div>
 		<div id="powerups">
 			<button id="auto-clicker">Auto-clicker (50 kittens)</button>	
+			<button id="power-click">Power-click (100 kittens)</button>	
 		</div>
 		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 		<script>
@@ -52,7 +53,9 @@
 			var score = 0,
 				scoreShown = 0,
 				autoClick = 0,
+				clickIncrement = 1,
 				autoClickCost = 50,
+				powerClickCost = 100,
 				playStartDate = new Date();
 
 			function updateScore() {
@@ -92,6 +95,12 @@
 				} else {
 					$('#auto-clicker').removeAttr('disabled');
 				}
+
+				if (score < powerClickCost) {
+					$('#power-click').attr('disabled', 'true');	
+				} else {
+					$('#power-click').removeAttr('disabled');
+				}
 			}
 
 			$('#target')
@@ -102,13 +111,19 @@
 					$(this).removeClass('depressed');
 				})
 				.click(function () {
-					score = score + 1;
+					score = score + clickIncrement;
 					updatePowerups();
 				});
 
 			$('#auto-clicker').click(function () {
 				score = score - autoClickCost;
 				autoClick = autoClick + 1;
+				updatePowerups();
+			});
+
+			$('#power-click').click(function () {
+				score = score - powerClickCost;
+				clickIncrement = clickIncrement * 2;
 				updatePowerups();
 			});
 

@@ -29,13 +29,14 @@ body {
 #powerups {
     text-align: center;
     margin-top: 80px;
+    font-size: 0;
 }
 #powerups button {
     font-size: 18px;
     width: 150px;
     height: 150px;
     vertical-align: middle;
-    margin: 0;
+    margin: 5px;
     background: white;
     border: 5px solid black;
     border-radius: 10px;

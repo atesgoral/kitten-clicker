@@ -2,11 +2,13 @@ $(function () {
     var score = 0,
         scoreShown = 0,
         autoClick = 0,
-        clickIncrement = 1,
+        powerClick = 0,
         catLady = 0,
+        catFarm = 0,
         autoClickCost = 50,
         powerClickCost = 100,
         catLadyCost = 200,
+        catFarmCost = 1000,
         playStartDate = new Date();
 
     function updateScore() {
@@ -67,13 +69,22 @@ $(function () {
         $('#cat-lady .current').text(catLady);
         $('#cat-lady .cost').text(catLadyCost);
 
+        if (score < catFarmCost) {
+            $('#cat-farm').attr('disabled', 'true');
+        } else {
+            $('#cat-farm').removeAttr('disabled');
+        }
+
+        $('#cat-farm .current').text(catFarm);
+        $('#cat-farm .cost').text(catFarmCost);
+
         if (score < powerClickCost) {
             $('#power-click').attr('disabled', 'true');
         } else {
             $('#power-click').removeAttr('disabled');
         }
 
-        $('#power-click .current').text(clickIncrement);
+        $('#power-click .current').text(powerClick);
         $('#power-click .cost').text(powerClickCost);
     }
 
@@ -85,7 +96,7 @@ $(function () {
             $(this).removeClass('depressed');
         })
         .click(function () {
-            score = score + clickIncrement;
+            score = score + 1 + powerClick;
             updatePowerups();
         });
 
@@ -103,9 +114,16 @@ $(function () {
         updatePowerups();
     });
 
+    $('#cat-farm').click(function () {
+        score = score - catFarmCost;
+        catFarmCost = catFarmCost + 500;
+        catFarm = catFarm + 50;
+        updatePowerups();
+    });
+
     $('#power-click').click(function () {
         score = score - powerClickCost;
-        clickIncrement = clickIncrement + 1;
+        powerClick = powerClick + 1;
         powerClickCost = powerClickCost + 100;
         updatePowerups();
     });
@@ -117,7 +135,7 @@ $(function () {
     }
 
     window.setInterval(function () {
-        score = score + autoClick + catLady;
+        score = score + autoClick + catLady + catFarm;
         updateAll();
     }, 1000);
 

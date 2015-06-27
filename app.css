@@ -17,7 +17,7 @@ body {
     width: 300px;
     height: 300px;
     background: red;
-    margin: 100px auto 0;
+    margin: 80px auto 0;
     background: url(http://www.catbreedspic.co/wp-content/uploads/2014/08/cat-head-drawing-outlineoutline-of-cat-face---clipart-best-vsp41pcp.png) 50% 50% no-repeat;
     background-size: contain;
     cursor: pointer;
@@ -27,5 +27,25 @@ body {
     width: 297px;
 }
 #powerups {
-
+    text-align: center;
+    margin-top: 80px;
+}
+#powerups button {
+    font-size: 18px;
+    width: 150px;
+    height: 150px;
+    vertical-align: middle;
+    margin: 0;
+    background: white;
+    border: 5px solid black;
+    border-radius: 10px;
+}
+#powerups button .current {
+    margin-bottom: 20px;
+}
+#powerups button .cost {
+    margin-top: 20px;
+}
+#powerups button .cost:after {
+    content: ' kittens';
 }

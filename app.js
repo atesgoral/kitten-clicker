@@ -53,11 +53,17 @@ $(function () {
             $('#auto-clicker').removeAttr('disabled');
         }
 
+        $('#auto-clicker .current').text(autoClick);
+        $('#auto-clicker .cost').text(autoClickCost);
+
         if (score < powerClickCost) {
             $('#power-click').attr('disabled', 'true');
         } else {
             $('#power-click').removeAttr('disabled');
         }
+
+        $('#power-click .current').text(clickIncrement);
+        $('#power-click .cost').text(powerClickCost);
     }
 
     $('#target')
@@ -81,9 +87,7 @@ $(function () {
 
     $('#power-click').click(function () {
         score = score - powerClickCost;
-        clickIncrement = clickIncrement === 1
-            ? 5
-            : clickIncrement + 5;
+        clickIncrement = clickIncrement + 1;
         powerClickCost = powerClickCost + 100;
         updatePowerups();
     });
